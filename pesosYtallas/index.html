@@ -1,0 +1,71 @@
+<!doctype html>
+<html ng-app="phonecatApp">
+    <head>
+        <meta charset='utf-8'>
+        <title> hallar centimetros y pesos </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+<script src="xlsx.core.min.js"></script>
+<script src="alasql.min.js" ></script>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+         <script src="app.js"></script>
+         <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+
+    </head>
+
+    <body ng-controller='MainCtrl as $ctrl'>  
+         {{ $ctrl.data }}
+        
+
+
+        <h1>
+            Hallando pesos y tallas dentro de una cadena de texto.
+        </h1>
+
+
+        <h2>Buscar en un texto específico</h2>
+        <textarea id='textarea' style='width:400px;height: 400px'>
+                Los patrones simples se construyen con caracteres para los que se desea una coincidencia exacta. 
+                 Por ejemplo, el patrón /abc/ coincidirá sólo con esta exacta secuencia y orden de caracteres 'abc'. 
+                 Tal expresión tendría resultados en las cadenas "Hola, ¿conoces tu abc?" y "Los últimos talla: 50 cm diseños de aviones evolucionaron desde slabcraft." 
+                 En ambos existe una coincidencia exacta con la subcadena 'abc'. Sin embargo, no habría coincidencia peso: 75 kg en la cadena 'Nayab calló'  debido a que, a 780.6548 kg pesar de que contiene talla: 998.0 cm los caracteres 'a',
+                  'b' y 'c', la secuencia exacta 'abc' nunca aparece.
+        </textarea>
+        <button onClick='imprimirTexto()'>Hallar unidades</button>
+        
+            <h2>buscar en excel</h2>
+            <form enctype="multipart/form-data">
+               <label for='columna'>Columna donde buscar</label> 
+               <br><input id='clave' type='text' value='Id_Paciente'>
+               <br><input id='columna' type='text' value='Examen_fisico'>
+               <br><input id="upload" type=file  name="files[]" data='$ctrl.data' custom-on-change="uploadFile">
+               <br><button role='button'' id="descargar">extraer</button>
+            </form>
+
+        
+
+
+<script  language="JavaScript">
+
+
+ 
+
+  
+
+
+
+ var elem = document.getElementById('descargar');
+</script>
+
+<script>
+   
+
+ 
+//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+
+</script>
+
+    </body>
+</html>

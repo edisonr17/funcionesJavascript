@@ -1,0 +1,90 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script src="alasql.min.js" ></script>
+<script src="xlsx.core.min.js"></script>
+
+<script  language="JavaScript">
+
+
+    var ExcelToJSON = function() {
+
+      this.parseExcel = function(file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var data = e.target.result;
+          var workbook = XLSX.read(data, {
+            type: 'binary'
+          });
+          workbook.SheetNames.forEach(function(sheetName) {
+            // Here is your object
+            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+            var json_object = JSON.stringify(XL_row_object);
+            
+            json_object = JSON.parse(json_object);
+            //console.log(JSON.parse(json_object));
+       
+
+var InformeFinal = [];
+json_object.forEach(function(element) {
+   
+ element['R'];
+
+ for(var $k = 0; $k < element['R']  ; $k++)
+ {
+      InformeFinal.push(element['A'] + ',' +  
+                        element['B'] + ',' + 
+                        element['C'] + ',' +
+                         element['D']+ ',' + 
+                         element['E']+ ',' + 
+                         element['F']+ ',' + 
+                         element['G'] + ',' +
+                         element['H'] + ',' + 
+                         element['I']+ ',' + 
+                         element['J'] + ',' + 
+                         element['L'] + ',' + 
+                         element['M']+ ',' + 
+                         element['N'] + ',' +
+                         element['P'] );
+ }
+  
+});
+
+ console.log(JSON.stringify(InformeFinal));
+          // jQuery( '#xlx_json' ).val( JSON.stringify(InformeFinal) );
+
+    
+
+          })
+        };
+
+        reader.onerror = function(ex) {
+          console.log(ex);
+        };
+
+        reader.readAsBinaryString(file);
+      };
+  };
+
+  function handleFileSelect(evt) {
+    
+    var files = evt.target.files; // FileList object
+    var xl2json = new ExcelToJSON();
+    xl2json.parseExcel(files[0]);
+  }
+
+
+ var elem = document.getElementById('descargar');
+</script>
+
+<form enctype="multipart/form-data">
+    <input id="upload" type=file  name="files[]">
+</form>
+<a id="descargar"  href='#'>descarga</a>
+    <textarea class="form-control" rows=35 cols=120 id="xlx_json"></textarea>
+
+    <script>
+        document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+
+    </script>

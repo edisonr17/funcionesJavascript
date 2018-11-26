@@ -1,0 +1,10 @@
+Organizar el excel con los titulos de las columnas en orden alfabetico.
+Ingresar al index
+luego F12 para abrir la consola
+consola, se limpia si tiene datos.
+selecciona el archivo, 
+Le da copy
+abro el visual studio code
+y pega las lineas.
+selecciona el patron "," y presiona ctrl + shift + l y le da enter hasta que las lineas queden todas hacia abajo
+elimina los corchetes iniciales y finales y lo guarda con terminación .csv
