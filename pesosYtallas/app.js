@@ -66,7 +66,9 @@ app.directive('customOnChange', function () {
                             scope.informeFinal.push({
                                 'identificador': element[clave],
                                 peso: String(scope.buscarEnCadena(element[column], 'peso')),
-                                talla: String(scope.buscarEnCadena(element[column], 'talla'))
+                                talla: String(scope.buscarEnCadena(element[column], 'talla')),
+                                sistolica: String(scope.buscarEnCadena(element[column], 'sistolica')),
+                                diastolica: String(scope.buscarEnCadena(element[column], 'diastolica'))
                             });
 
                         });
@@ -99,31 +101,31 @@ app.directive('customOnChange', function () {
              * Esta función permite hallar una unidad de medida en un párrafo
              */
             scope.buscarEnCadena = function (texto, tipo) {
-
-                //var talla = new RegExp(/(peso: |talla: |altura: )+[-]{0,1}[\d]*[\.]{0,1}[\d]+ (cm|kg)+/g);
+                var result = [];
+                //var  talla = new RegExp(/(peso: |talla: |altura: )+[-]{0,1}[\d]*[\.]{0,1}[\d]+ (cm|kg)+/g);
                 if (texto != undefined) {
-                    if (tipo == 'peso') {
-                        var peso = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+ (kg|Kg|KG)+/g);
-                        var result = texto.match(peso);
-                        var pesoSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+                    
 
-                        if (result != null) {
-                            result = result[0].match(pesoSoloNumero);
-                        }
-                    } else {
-                        var talla = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+ (cm|CM|Cm)+/g);
-                        var tallaSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
-                        var result = texto.match(talla);
+                    switch(tipo) {
+                        case'peso':
+                         result = scope.buscarPeso(texto);
+                          break;
+                        case 'talla':
+                          result = scope.buscarTalla(texto);
+                          break;
+                        case 'sistolica':
+                          result = scope.buscarSistolica(texto);
+                        break;  
+                     case 'diastolica':
+                        result = scope.buscarDiastolica(texto);
+                      break;
+                        default:
+                          
+                      }
+                      return result;
 
-
-                        if (result != null) {
-                            result = result[0].match(tallaSoloNumero);
-                            if(result < 2)
-                            {
-                                result = result * 100;
-                            }
-                        }
-                    }
+                  
+                      
 
                 } else {
                     result = []
@@ -133,7 +135,67 @@ app.directive('customOnChange', function () {
                 return result;
             };
 
+            /**
+            * 
+            */
+            scope.buscarPeso = function(texto)
+            {
+                var peso = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+ (kg|Kg|KG)+/g);
+                var result = texto.match(peso);
+                var pesoSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
 
+                if (result != null) {
+                    result = result[0].match(pesoSoloNumero);
+                }
+                return result;
+            };
+
+
+
+            scope.buscarTalla = function(texto)
+            {
+                var talla = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+ (cm|CM|Cm)+/g);
+                var tallaSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+                var result = texto.match(talla);
+
+
+                if (result != null) {
+                    result = result[0].match(tallaSoloNumero);
+                    if(result < 2)
+                    {
+                        result = result * 100;
+                    }
+                }
+                return result;
+            
+            };
+
+
+            scope.buscarSistolica = function(texto)
+            {
+                var valor = new RegExp(/(Sistólica :|Sistolica :|sistolica :|sistólica :) +[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+                var result = texto.match(valor);
+                var pesoSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+
+                if (result != null) {
+                    result = result[0].match(pesoSoloNumero);
+                }
+                return result;
+            };
+
+
+
+            scope.buscarDiastolica = function(texto)
+            {
+                var valor = new RegExp(/(Diastólica :|Diastolica :|diastolica :|diastólica :) +[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+                var result = texto.match(valor);
+                var pesoSoloNumero = new RegExp(/[-]{0,1}[\d]*[\.|,]{0,1}[\d]+/g);
+
+                if (result != null) {
+                    result = result[0].match(pesoSoloNumero);
+                }
+                return result;
+            };
 
             element.on('$destroy', function () {
                 element.off();
