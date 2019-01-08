@@ -1,31 +1,48 @@
 <!doctype html>
 <html ng-app="phonecatApp">
-    <head>
-        <meta charset='utf-8'>
-        <title> hallar centimetros y pesos </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
-<script src="xlsx.core.min.js"></script>
-<script src="alasql.min.js" ></script>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
-         <script src="app.js"></script>
-         <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+<head>
+    <meta charset='utf-8'>
+    <title> hallar centimetros y pesos </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script src="xlsx.core.min.js"></script>
+    <script src="alasql.min.js"></script>
 
-    </head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+    <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+    <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css" type="text/css">
 
-    <body ng-controller='MainCtrl as $ctrl'>  
-         {{ $ctrl.data }}
-        
+    <script src="node_modules/angular-ui-grid/ui-grid.core.min.js"></script>
+    <script src="node_modules/angular-ui-grid/ui-grid.exporter.min.js"></script>
+    <script src="node_modules/angular-ui-grid/ui-grid.selection.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
+    <script src="app.js"></script>
+
+    <style>
+        .myGrid {
+    min-width: 1200px;
+    height: 850px;
+  }
+         </style>
+</head>
+
+<body ng-controller='MainCtrl as $ctrl'>
 
 
-        <h1>
-            Hallando pesos y tallas dentro de una cadena de texto.
-        </h1>
+
+    <h1>
+        Hallando pesos y tallas dentro de una cadena de texto.
+    </h1>
 
 
-        <h2>Buscar en un texto específico</h2>
+    <!-- <h2>Buscar en un texto específico</h2>
         <textarea id='textarea' style='width:400px;height: 400px'>
                 Los patrones simples se construyen con caracteres para los que se desea una coincidencia exacta. 
                  Por ejemplo, el patrón /abc/ coincidirá sólo con esta exacta secuencia y orden de caracteres 'abc'. 
@@ -33,39 +50,28 @@
                  En ambos existe una coincidencia exacta con la subcadena 'abc'. Sin embargo, no habría coincidencia peso: 75 kg en la cadena 'Nayab calló'  debido a que, a 780.6548 kg pesar de que contiene talla: 998.0 cm los caracteres 'a',
                   'b' y 'c', la secuencia exacta 'abc' nunca aparece.
         </textarea>
-        <button onClick='imprimirTexto()'>Hallar unidades</button>
-        
-            <h2>buscar en excel</h2>
-            <form enctype="multipart/form-data">
-               <label for='columna'>Columna donde buscar</label> 
-               <br><input id='clave' type='text' value='Id_Paciente'>
-               <br><input id='columna' type='text' value='Examen_fisico'>
-               <br><input id="upload" type=file  name="files[]" data='$ctrl.data' custom-on-change="uploadFile">
-               <br><button role='button'' id="descargar">extraer</button>
+        <button onClick='imprimirTexto()'>Hallar unidades</button> -->
+    
+    <h2>buscar en excel</h2>
+    <form enctype="multipart/form-data">
+        <label for='columna'>Columna donde buscar</label>
+        <br><input id='clave' type='text' value='Id_Paciente'>
+        <br><input id='columna' type='text' value='Examen_fisico'>
+        <br><input id="upload" type=file name="files[]" data='$ctrl.data' custom-on-change="uploadFile">
+        <br><button role='button'' id="descargar">extraer</button>
             </form>
 
-        
-
-
-<script  language="JavaScript">
-
-
- 
-
-  
+            
+            <div ui-grid="gridOptions"  ui-grid-selection ui-grid-exporter class="myGrid"></div>
+            <script  language="JavaScript">
+                var elem = document.getElementById('descargar'); </script> <script>
 
 
 
- var elem = document.getElementById('descargar');
-</script>
+            //document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 
-<script>
-   
+            </script>
 
- 
-//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+</body>
 
-</script>
-
-    </body>
 </html>
